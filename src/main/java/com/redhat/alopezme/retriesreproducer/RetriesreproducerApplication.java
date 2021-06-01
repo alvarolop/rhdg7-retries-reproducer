@@ -27,16 +27,26 @@ public class RetriesreproducerApplication {
 	}
 
 	/**
-	 * This method introduces a new book with id [0,99] every 10 ms.
+	 * This method introduces a new book with id [0,999] every 10 ms.
 	 * Every 10 seconds, it overrides all the books in the cache (1000)
 	 */
 	@Scheduled(fixedDelay = 10, initialDelay = 10_000)
-	public void scheduleFixedDelayTask() {
+	public void scheduleFixedDelayPuts() {
 		int bookId = iteration++ % 1_000;
-		logger.debug("Fixed delay task - " + System.currentTimeMillis() / 1000 + " Iteration " + bookId);
+		logger.trace("Fixed delay task - " + System.currentTimeMillis() / 1000 + " Iteration " + bookId);
 
 		Book book = new Book(bookId,"Coding from home" ,"Álvaro López Medina",2021);
 		logger.info("PUT - " + book.toString());
 		bookRepository.insert(bookId, book);
+	}
+
+	/**
+	 * This method retrieves a book with id [0,999] every 10 ms.
+	 */
+	@Scheduled(fixedDelay = 10, initialDelay = 20_000)
+	public void scheduleFixedDelayGets() {
+		int bookId = iteration++ % 1_000;
+		logger.trace("Fixed delay task - " + System.currentTimeMillis() / 1000 + " Iteration " + bookId);
+		logger.info("GET - " + bookRepository.findById(bookId));
 	}
 }
