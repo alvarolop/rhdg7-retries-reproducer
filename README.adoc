@@ -1,0 +1,54 @@
+= Red Hat Data Grid 7 Retries reproducer
+Álvaro López Medina <alopezme@redhat.com>
+v1.0, 2020-12
+// Create TOC wherever needed
+:toc: macro
+:sectanchors:
+:sectnumlevels: 2
+:sectnums:
+:source-highlighter: pygments
+:imagesdir: images
+// Start: Enable admonition icons
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+ifndef::env-github[]
+:icons: font
+endif::[]
+// End: Enable admonition icons
+
+This repository is just to test the correct behaviour of max-retries configuration param of Infinispan
+
+// Create the Table of contents here
+toc::[]
+
+== Deploy on OCP
+
+Deploying your client application on OCP requires to create several Openshift objects. Therefore, we are going to define some common variables that will be used from now onwards:
+
+[source, bash]
+----
+export APP_NAME=rhdg73-8-client
+export APP_NAMESPACE=rhdg7
+export RHDG_CLUSTER=rhdg73-8-server
+export GIT_REPO=https://github.com/alvarolop/rhdg7-retries-reproducer.git
+----
+
+First, create a ConfigMap that will store your application configuration:
+[source, bash]
+----
+oc create configmap ${APP_NAME}-config \
+--from-file=application.properties=src/main/resources/application-k8s.properties \
+--from-file=logback-spring.xml=src/main/resources/logback-spring-k8s.xml -n $APP_NAMESPACE
+----
+
+This is the command to apply the Openshift template to create your Openshift resources:
+[source, bash]
+----
+oc process -f templates/rhdg-client.yaml -p APPLICATION_NAME=$APP_NAME -p GIT_REPOSITORY=$GIT_REPO -p APP_NAMESPACE=$APP_NAMESPACE -p RHDG_CLUSTER_NAME=$RHDG_CLUSTER | oc apply -f -
+----
+
