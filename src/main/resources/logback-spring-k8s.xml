@@ -23,5 +23,5 @@
     <logger name="org.infinispan.client.hotrod" level="debug"/>
 
     <!-- LOG "com.example*" at TRACE level -->
-    <logger name="com.alopezme.hotrodtester" level="debug"/>
+    <logger name="com.redhat.alopezme" level="debug"/>
 </configuration>

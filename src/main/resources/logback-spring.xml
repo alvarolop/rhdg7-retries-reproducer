@@ -19,7 +19,7 @@
     </root>
 
     <!-- LOG "com.example*" at TRACE level -->
-    <logger name="com.example" level="trace" additivity="false">
+    <logger name="com.redhat" level="trace" additivity="false">
         <appender-ref ref="Console" />
     </logger>
 
