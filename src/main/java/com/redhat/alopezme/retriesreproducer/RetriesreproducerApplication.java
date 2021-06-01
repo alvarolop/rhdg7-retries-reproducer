@@ -36,8 +36,9 @@ public class RetriesreproducerApplication {
 		logger.trace("Fixed delay task - " + System.currentTimeMillis() / 1000 + " Iteration " + bookId);
 
 		Book book = new Book(bookId,"Coding from home" ,"Álvaro López Medina",2021);
-		logger.info("PUT - " + book.toString());
+		logger.trace("PUT - " + book.toString());
 		bookRepository.insert(bookId, book);
+		if (bookId == 999){logger.info("PUT - New loop");}
 	}
 
 	/**
@@ -47,6 +48,7 @@ public class RetriesreproducerApplication {
 	public void scheduleFixedDelayGets() {
 		int bookId = iteration++ % 1_000;
 		logger.trace("Fixed delay task - " + System.currentTimeMillis() / 1000 + " Iteration " + bookId);
-		logger.info("GET - " + bookRepository.findById(bookId));
+		logger.trace("GET - " + bookRepository.findById(bookId));
+		if (bookId == 999){logger.info("GET - New loop");}
 	}
 }
