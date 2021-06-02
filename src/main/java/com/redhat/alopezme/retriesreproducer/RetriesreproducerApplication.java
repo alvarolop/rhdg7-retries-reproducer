@@ -5,6 +5,7 @@ import com.redhat.alopezme.retriesreproducer.repository.BookRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -19,6 +20,9 @@ public class RetriesreproducerApplication {
 
 	int iteration = 0;
 
+//	@Value("tester.delay")
+//	int delay;
+
 	Logger logger = LoggerFactory.getLogger(RetriesreproducerApplication.class);
 
 
@@ -30,7 +34,7 @@ public class RetriesreproducerApplication {
 	 * This method introduces a new book with id [0,999] every 10 ms.
 	 * Every 10 seconds, it overrides all the books in the cache (1000)
 	 */
-	@Scheduled(fixedDelay = 10, initialDelay = 10_000)
+	@Scheduled(fixedDelay = 1, initialDelay = 10_000)
 	public void scheduleFixedDelayPuts() {
 		int bookId = iteration++ % 1_000;
 		logger.trace("Fixed delay task - " + System.currentTimeMillis() / 1000 + " Iteration " + bookId);
@@ -44,7 +48,7 @@ public class RetriesreproducerApplication {
 	/**
 	 * This method retrieves a book with id [0,999] every 10 ms.
 	 */
-	@Scheduled(fixedDelay = 10, initialDelay = 20_000)
+	@Scheduled(fixedDelay = 1, initialDelay = 20_000)
 	public void scheduleFixedDelayGets() {
 		int bookId = iteration++ % 1_000;
 		logger.trace("Fixed delay task - " + System.currentTimeMillis() / 1000 + " Iteration " + bookId);
