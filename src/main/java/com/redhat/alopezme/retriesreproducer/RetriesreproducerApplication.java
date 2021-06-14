@@ -18,7 +18,8 @@ public class RetriesreproducerApplication {
 	@Autowired
 	BookRepository bookRepository;
 
-	int iteration = 0;
+	int iterationGet = 0;
+	int iterationPut = 0;
 
 //	@Value("tester.delay")
 //	int delay;
@@ -36,8 +37,8 @@ public class RetriesreproducerApplication {
 	 */
 	@Scheduled(fixedDelay = 1, initialDelay = 10_000)
 	public void scheduleFixedDelayPuts() {
-		int bookId = iteration++ % 1_000;
-		logger.trace("Fixed delay task - " + System.currentTimeMillis() / 1000 + " Iteration " + bookId);
+		int bookId = iterationPut++ % 1_000;
+//		logger.trace("Fixed delay task - " + System.currentTimeMillis() / 1000 + " Iteration " + bookId);
 
 		Book book = new Book(bookId,"Coding from home" ,"Álvaro López Medina",2021);
 		logger.trace("PUT - " + book.toString());
@@ -48,10 +49,10 @@ public class RetriesreproducerApplication {
 	/**
 	 * This method retrieves a book with id [0,999] every 10 ms.
 	 */
-	@Scheduled(fixedDelay = 1, initialDelay = 20_000)
+	@Scheduled(fixedDelay = 1, initialDelay = 10_000)
 	public void scheduleFixedDelayGets() {
-		int bookId = iteration++ % 1_000;
-		logger.trace("Fixed delay task - " + System.currentTimeMillis() / 1000 + " Iteration " + bookId);
+		int bookId = iterationGet++ % 1_000;
+//		logger.trace("Fixed delay task - " + System.currentTimeMillis() / 1000 + " Iteration " + bookId);
 		logger.trace("GET - " + bookRepository.findById(bookId));
 		if (bookId == 999){logger.info("GET - New loop");}
 	}
