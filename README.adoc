@@ -32,7 +32,7 @@ Deploying your client application on OCP requires to create several Openshift ob
 
 [source, bash]
 ----
-export APP_NAME=rhdg73-8-client
+export APP_NAME=rhdg73-8-client-retries
 export APP_NAMESPACE=rhdg7
 export RHDG_CLUSTER=rhdg73-8-server
 export GIT_REPO=https://github.com/alvarolop/rhdg7-retries-reproducer.git

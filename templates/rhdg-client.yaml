@@ -143,9 +143,11 @@ objects:
 parameters:
   - name: APPLICATION_NAME
     description: "The name of the application."
+    value: "rhdg73-8-client-retries"
     required: true
   - name: APP_NAMESPACE
     description: "The namespace of the application."
+    value: "rhdg7"
     required: true
   - name: MOUNT_PATH
     description: "The path where the configuration file of the application is mounted."
